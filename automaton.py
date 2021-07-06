@@ -7,7 +7,7 @@ class State():
         Class for modeling a state in a finite state automaton.
     """
     def __init__(self, name):
-        self.name = name
+        self.state = name
         self.successors = {}
 
     def set_successor(self, entry, successor):
@@ -20,7 +20,7 @@ class State():
         return self.successors.get(entry, self)
 
     def __repr__(self):
-        return "State(name=%r)" % self.name
+        return "State(state=%r)" % self.state
 
 
 class Automaton():
@@ -46,13 +46,13 @@ class Automaton():
 
     def process(self, entry):
         if entry not in self.input_alphabet:
-            raise ValueError("Unspecified input, not accepted by this automaton!")
+            raise ValueError("Unspecified input, The automation cannot accept this!")
         self._exit_state(entry)
         self.__curr_state = self.__curr_state.process(entry)
         self._enter_state(entry)
 
     def __get_state(self):
-        return self.__curr_state.name
+        return self.__curr_state.state
 
     def __set_state(self, new_state):
         self.__curr_state = self.states[new_state]
